@@ -123,25 +123,35 @@ const ICONOS = {
 
 ## Publicar en GitHub Pages
 
-1. Crea un repo en la cuenta del CaDCC (o la del proyecto), por ejemplo `join-enlaces`, público.
-2. Sube **el contenido de esta carpeta** a la raíz del repo: `index.html` y este README.
-   ```sh
-   cd enlaces
-   git init && git add index.html README.md
-   git commit -m "Página de enlaces de JOIN"
-   git branch -M main
-   git remote add origin git@github.com:CaDCC/join-enlaces.git
-   git push -u origin main
-   ```
-3. En el repo: **Settings → Pages → Build and deployment → Source: Deploy from a branch**,
-   rama `main`, carpeta `/ (root)`. Guardar.
-4. En un par de minutos queda en `https://<cuenta>.github.io/join-enlaces/`. Ese es el link
-   que va en la bio de Instagram.
+Ya está publicada, servida por GitHub Pages desde este mismo repo:
 
-No hace falta workflow de Actions: Pages sirve el HTML tal cual.
+**https://cadaeic628.github.io/join-enlaces/**
 
-Para actualizar los links después se edita `index.html` en el repo, incluso desde la web de
-GitHub con el lápiz, y Pages republica solo.
+Esa es la URL que va en la bio de Instagram (Editar perfil → Enlaces → Agregar enlace externo).
+
+Pages sirve el `index.html` tal cual, sin build ni workflow de Actions. La configuración es
+`Settings → Pages → Deploy from a branch`, rama `main`, carpeta `/ (root)`.
+
+## Cómo actualizarla
+
+Editas `index.html`, commiteas y pusheas. Pages republica solo en un par de minutos.
+
+```sh
+git add index.html
+git commit -m "Actualiza la agenda de sesiones"
+git push
+```
+
+Para un cambio chico, como borrar una sesión que ya pasó o agregar la siguiente, se puede editar
+`index.html` directamente en la web de GitHub con el lápiz y confirmar los cambios ahí mismo. No
+hace falta clonar nada.
+
+### Una advertencia sobre la cuenta
+
+El repo está en una cuenta personal. Vale la pena moverlo a la organización del CaDCC
+(`Settings → General → Transfer ownership`) para que la página siga siendo editable cuando quien
+la creó ya no esté en el centro. Al transferirlo cambia la URL, así que conviene hacerlo antes de
+publicar el link en Instagram, o dejar un dominio propio de por medio.
 
 ### Si quieren un dominio más corto
 
