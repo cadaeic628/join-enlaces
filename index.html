@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JOIN</title>
+<meta name="description" content="Tutorías del CaDCC para Matemáticas Discretas y Teoría de la Computación. Inscripción a las sesiones, canal de Telegram y guías.">
+<meta name="theme-color" content="#1C1B19">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 62 50'%3E%3Cg fill='%230366D6'%3E%3Cpath d='M0 0 L31 25 L0 50 Z'/%3E%3Cpath d='M62 0 L31 25 L62 50 Z'/%3E%3C/g%3E%3C/svg%3E">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="JOIN">
+<meta property="og:description" content="Tutorías del CaDCC para Matemáticas Discretas y Teoría de la Computación.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;500;700&display=swap">
+
+<style>
+/* ───────────────────────────────────────────────────────────────────
+   La estructura de links.cadcc.cl (LinkStack, tema galaxy) con la
+   identidad de JOIN: avatar circular, nombre, bio, fila de redes y una
+   pila de botones con separadores de sección.
+
+   Lo que cambia respecto del CaDCC: el fondo es el tono `tinta` de
+   social/join-social.typ en vez del azul galaxia, las estrellas son
+   bowties del logo, y toda la página va en Inconsolata, la misma
+   monoespaciada de la palabra JOIN en las guías.
+
+   Tema único: el fondo oscuro se ve igual venga el teléfono en claro
+   o en oscuro.
+   ─────────────────────────────────────────────────────────────────── */
+:root{
+  --tinta:#1C1B19;        /* el fondo */
+  --tinta-alta:#26241F;
+  --crema:#F1EDE6;
+  --azul:#0366D6;         /* el azul del logo */
+  --azul-claro:#79B8FF;   /* el azul que sí se lee sobre tinta */
+  --blanco:#FFFFFF;
+
+  --texto-suave:rgba(241,237,230,.76);
+  --borde:rgba(241,237,230,.22);
+  --borde-vivo:rgba(121,184,255,.55);
+  --lavado:rgba(121,184,255,.10);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:var(--tinta);
+  color:var(--crema);
+  font-family:Inconsolata,ui-monospace,"SF Mono",Menlo,monospace;
+  font-size:17px;
+  line-height:1.5;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ── el cielo de bowties ──────────────────────────────────────────── */
+/* La versión JOIN del fondo de estrellas del tema galaxy: el símbolo del
+   natural join a distintos tamaños, derivando muy despacio. */
+.cielo{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+.cielo svg{position:absolute;fill:var(--azul-claro);animation:deriva linear infinite alternate}
+@keyframes deriva{
+  from{transform:translate3d(0,0,0)}
+  to{transform:translate3d(var(--dx),var(--dy),0)}
+}
+
+.hoja{
+  position:relative;
+  z-index:1;
+  width:100%;
+  max-width:27rem;
+  margin:0 auto;
+  padding:3.25rem 1.35rem 3rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+/* ── avatar, nombre, bio ──────────────────────────────────────────── */
+/* El ícono del avatar de Instagram en negativo: disco azul y bowtie blanco,
+   con el aire alrededor que pide `instrucciones-forms-y-logo.txt` para que
+   el símbolo aguante el recorte circular. Sin anillo: el disco azul ya se
+   despega del fondo tinta, y cualquier halo sobre ese fondo se ensucia. */
+.avatar{
+  width:7.25rem;
+  height:7.25rem;
+  border-radius:50%;
+  background:var(--azul);
+  display:grid;
+  place-items:center;
+}
+.avatar svg{width:52%;height:auto;fill:var(--blanco)}
+
+.nombre{
+  margin:1.35rem 0 0;
+  font-weight:700;
+  font-size:2.7rem;
+  line-height:1;
+  letter-spacing:.14em;
+  padding-left:.14em;      /* la N arrastra el tracking; se compensa */
+  color:var(--crema);
+}
+
+.bio{
+  margin:.95rem 0 0;
+  max-width:34ch;
+  font-size:.92rem;
+  line-height:1.65;
+  color:var(--texto-suave);
+  text-wrap:balance;
+}
+
+/* ── fila de redes ────────────────────────────────────────────────── */
+.redes{display:flex;gap:1.5rem;margin-top:1.5rem}
+.redes a{
+  display:grid;place-items:center;
+  width:2.4rem;height:2.4rem;
+  color:var(--crema);
+  border-radius:50%;
+  transition:color .15s ease,transform .15s ease;
+}
+.redes svg{width:1.5rem;height:1.5rem}
+.redes a:hover,.redes a:focus-visible{color:var(--azul-claro);transform:translateY(-2px)}
+
+/* ── próximas sesiones ────────────────────────────────────────────── */
+/* No es un botón, aunque antes lo parecía: es la única zona de contenido
+   de la página. Por eso deja la caja redondeada y pasa a leerse como la
+   agenda de una guía, alineada a la izquierda y sobre la regla gruesa de
+   join.sty. El número grande es el recurso `cifra` de join-social.typ:
+   "para que el número mande". Al ir todo en monoespaciada, las columnas
+   calzan solas. */
+.sesiones{width:100%;margin-top:2.2rem;text-align:left}
+.sesiones h2{
+  margin:0;
+  font-size:.95rem;
+  font-weight:700;
+  color:var(--crema);
+}
+.sesiones hr{
+  height:2px;
+  margin:.55rem 0 0;
+  background:var(--azul);
+  border:0;
+}
+.sesiones ol{list-style:none;margin:0;padding:0}
+.sesiones li{border-bottom:1px solid var(--borde)}
+
+/* Cada sesión lleva a su propio formulario. El margen negativo hace que el
+   lavado del hover respire a los lados sin desalinear el contenido. */
+.sesion{
+  display:grid;
+  grid-template-columns:3.5rem 1fr;
+  align-items:center;
+  margin-inline:-.6rem;
+  padding:.95rem .6rem;
+  border-radius:8px;
+  color:inherit;
+  text-decoration:none;
+  transition:background-color .15s ease;
+}
+a.sesion:hover,a.sesion:focus-visible{background:var(--lavado)}
+a.sesion:focus-visible{outline:2px solid var(--azul-claro);outline-offset:0}
+
+/* La columna de la fecha, separada por el mismo filete que la franja de
+   etiquetas al margen de las guías. */
+.sesion-fecha{
+  padding-right:1rem;
+  border-right:1px solid var(--borde);
+  text-align:center;
+  align-self:stretch;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.sesion-dia{
+  font-size:1.85rem;
+  font-weight:700;
+  line-height:1;
+  color:var(--azul-claro);
+  font-variant-numeric:tabular-nums;
+}
+.sesion-mes{
+  margin-top:.2rem;
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--texto-suave);
+}
+
+.sesion-detalle{padding-left:1.1rem;min-width:0}
+.sesion-codigo{
+  display:block;
+  font-size:.71rem;
+  font-weight:700;
+  letter-spacing:.13em;
+  color:var(--azul-claro);
+}
+.sesion-ramo{
+  display:block;
+  margin-top:.1rem;
+  font-size:1rem;
+  font-weight:700;
+  line-height:1.25;
+  color:var(--crema);
+}
+.sesion-cuando{
+  display:block;
+  margin-top:.25rem;
+  font-size:.85rem;
+  line-height:1.4;
+  color:var(--texto-suave);
+}
+.sesion-accion{
+  display:inline-block;
+  margin-top:.5rem;
+  font-size:.8rem;
+  font-weight:700;
+  color:var(--azul-claro);
+  border-bottom:1px solid rgba(121,184,255,.45);
+  transition:border-color .15s ease;
+}
+a.sesion:hover .sesion-accion,a.sesion:focus-visible .sesion-accion{border-bottom-color:currentColor}
+
+/* ── botones ──────────────────────────────────────────────────────── */
+.botones{
+  width:100%;
+  margin-top:2rem;
+  display:flex;
+  flex-direction:column;
+  gap:.7rem;
+}
+
+.boton{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.65rem;
+  min-height:3.4rem;
+  padding:.85rem 1.1rem;
+  border:1px solid var(--borde);
+  border-radius:12px;
+  text-decoration:none;
+  color:var(--crema);
+  background:transparent;
+  font-weight:500;
+  font-size:1rem;
+  line-height:1.25;
+  transition:border-color .16s ease,background-color .16s ease,transform .16s ease;
+  /* Entran escalonados, como los del CaDCC, pero corto: a los 0,7 s ya
+     está todo quieto y visible. */
+  animation:entrada .35s ease both;
+  animation-delay:var(--retardo,0s);
+}
+.boton svg{flex:none;width:1.15rem;height:1.15rem}
+.boton:hover,.boton:focus-visible{
+  border-color:var(--borde-vivo);
+  background:var(--lavado);
+  transform:translateY(-2px);
+}
+.boton:active{transform:translateY(0)}
+
+/* El único relleno: la inscripción. */
+.boton.principal{
+  background:var(--azul);
+  border-color:var(--azul);
+  color:var(--blanco);
+  font-weight:700;
+}
+.boton.principal:hover,.boton.principal:focus-visible{
+  background:#1478E8;
+  border-color:#1478E8;
+}
+
+.boton:focus-visible,.redes a:focus-visible,.pie a:focus-visible{
+  outline:2px solid var(--azul-claro);
+  outline-offset:3px;
+}
+
+@keyframes entrada{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ── separador de sección ─────────────────────────────────────────── */
+.seccion{
+  width:100%;
+  margin:1.6rem 0 .2rem;
+  display:flex;
+  align-items:center;
+  gap:.85rem;
+  font-weight:700;
+  font-size:.76rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--azul-claro);
+}
+.seccion::before,.seccion::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:var(--borde);
+}
+
+/* ── pie ──────────────────────────────────────────────────────────── */
+.pie{
+  margin-top:2.75rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:1rem;
+  font-size:.8rem;
+  line-height:1.7;
+  color:rgba(241,237,230,.6);
+}
+.pie p{margin:0}
+.pie p a{color:var(--crema);text-decoration:none;border-bottom:1px solid var(--borde)}
+.pie p a:hover,.pie p a:focus-visible{border-bottom-color:var(--azul-claro);color:var(--azul-claro)}
+
+/* Los logos del CaDCC y del DCC están dibujados para fondo claro: sobre la
+   tinta el morado y el gris no se leen. Van dentro de una placa crema con
+   las esquinas redondeadas, que respeta los colores oficiales sin tener
+   que recolorear la marca de nadie. */
+.placa{
+  display:flex;
+  align-items:center;
+  gap:1.15rem;
+  padding:.85rem 1.2rem;
+  background:var(--crema);
+  border-radius:14px;
+}
+.placa a{display:block;border-radius:6px;transition:opacity .15s ease}
+.placa a:hover,.placa a:focus-visible{opacity:.65}
+.placa img{display:block;width:auto}
+.placa .logo-cadcc{height:46px}
+.placa .logo-dcc{height:40px}
+/* El filete que separa las dos marcas, en la tinta rebajada de la placa. */
+.placa .filete{width:1px;align-self:stretch;background:rgba(28,27,25,.18)}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .boton{opacity:1}
+}
+</style>
+</head>
+<body>
+
+<div class="cielo" id="cielo" aria-hidden="true"></div>
+
+<main class="hoja">
+
+  <div class="avatar">
+    <!-- El bowtie del natural join, en la proporción del logo oficial
+         (logos/opcion-1-horizontal.svg): 266,65 × 215,04. -->
+    <svg viewBox="0 0 266.65 215.04" role="img" aria-label="JOIN">
+      <path d="M0 0 L133.325 107.52 L0 215.04 Z"></path>
+      <path d="M266.65 0 L133.325 107.52 L266.65 215.04 Z"></path>
+    </svg>
+  </div>
+
+  <h1 class="nombre">JOIN</h1>
+  <p class="bio" id="bio-slot"></p>
+
+  <nav class="redes" id="redes-slot" aria-label="Redes de JOIN"></nav>
+
+  <div id="sesiones-slot"></div>
+
+  <nav class="botones" id="botones-slot" aria-label="Enlaces de JOIN"></nav>
+
+  <footer class="pie">
+    <div class="placa">
+      <a href="https://cadcc.cl" target="_blank" rel="noopener" title="CaDCC">
+        <img class="logo-cadcc" width="141" height="138" alt="CaDCC"
+             src="data:image/png;base64,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">
+      </a>
+      <span class="filete" aria-hidden="true"></span>
+      <a href="https://www.dcc.uchile.cl" target="_blank" rel="noopener" title="Departamento de Ciencias de la Computación">
+        <img class="logo-dcc" width="234" height="120" alt="Departamento de Ciencias de la Computación, Universidad de Chile"
+             src="data:image/png;base64,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">
+      </a>
+    </div>
+    <p>Centro de Alumnos del DCC, Universidad de Chile</p>
+  </footer>
+
+</main>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════
+   CONFIGURACIÓN — lo único que hay que tocar para mantener la página.
+   Los links ya son los de verdad.
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* La bio, bajo el nombre. */
+const BIO = "Tutorías del CaDCC para preparar los controles de Matemáticas Discretas y Teoría de la Computación.";
+
+/* La agenda de próximas sesiones, en el orden en que se muestran.
+   `dia` y `mes` arman el bloque de fecha de la izquierda. `dia` se rellena
+   solo a dos dígitos, así que da lo mismo escribir "7" o "07"; `mes` va en
+   tres letras porque esa columna es angosta. `diaSemana`, `hora` y `lugar` se unen
+   con comas en la última línea, y los tres son opcionales.
+   Cuando no haya ninguna sesión agendada, deja la lista vacía y el bloque
+   entero desaparece sin dejar hueco. */
+const SESIONES = [
+  {
+    codigo:    "CC3102",
+    ramo:      "Teoría de la Computación",
+    dia:       "7",
+    mes:       "sep",
+    diaSemana: "lunes",
+    hora:      "16:15 a 17:45",
+    // lugar:  "sala B12",
+    url:       "https://docs.google.com/forms/d/e/1FAIpQLSfaJs83KUgSKOsWjaQ88ywgZE9Jyf7eanYHfBLHgqOpc_edwA/viewform?usp=dialog",
+  },
+];
+
+/* Los íconos redondos de arriba. */
+const REDES = [
+  { icono: "instagram", nombre: "Instagram", url: "https://instagram.com/proyectojoin.dcc" },
+  { icono: "telegram",  nombre: "Telegram",  url: "https://t.me/+4xaDfXh2sSUyMTMx" },
+];
+
+/* Los botones, en el orden en que salen.
+
+   - Un objeto con `seccion` dibuja un separador con ese título.
+   - `principal: true` pinta el botón de azul relleno. Deja solo uno.
+   - `icono` es uno de: formulario, guia, chat, telegram, instagram, calendario.
+     Si lo omites, el botón sale sin ícono. */
+const BOTONES = [
+  {
+    icono:  "guia",
+    titulo: "Guías de las sesiones",
+    url:    "https://drive.google.com/drive/folders/13-P_h5kTgN1pCIw681ksPpFsPnF06EPF?usp=sharing",
+  },
+  {
+    icono:  "chat",
+    titulo: "Cuéntanos cómo te fue",
+    url:    "https://docs.google.com/forms/d/e/1FAIpQLSe9nu6BsEvlax5uFYqz9_pF_pYmF8dmrQRXUhGUtm1U9pvTSw/viewform?usp=dialog",
+  },
+
+  { seccion: "Redes" },
+
+  {
+    icono:  "telegram",
+    titulo: "Canal de Telegram",
+    url:    "https://t.me/+4xaDfXh2sSUyMTMx",
+  },
+  {
+    icono:  "instagram",
+    titulo: "@proyectojoin.dcc",
+    url:    "https://instagram.com/proyectojoin.dcc",
+  },
+];
+
+/* ═══════════ De acá para abajo no hace falta tocar nada. ═══════════ */
+
+const NS = "http://www.w3.org/2000/svg";
+
+/* Íconos de línea, dibujados con geometría simple sobre una caja de 24. */
+const ICONOS = {
+  formulario: '<rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M8.5 8.5h7M8.5 12.5h7M8.5 16.5h4"/>',
+  guia:       '<path d="M6 3h8l4.5 4.5V21H6z"/><path d="M14 3v5h4.5"/><path d="M9 13h6M9 17h4"/>',
+  chat:       '<path d="M20.5 14.5a2 2 0 0 1-2 2H9l-4.5 4v-15a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/>',
+  telegram:   '<path d="M21 4.2 2.8 11.3l5.2 1.9L20 5.6l-9.6 8.6.4 5.6 3.1-3.9 4.5 3.2z"/>',
+  instagram:  '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.1" cy="6.9" r="1.15" fill="currentColor" stroke="none"/>',
+  calendario: '<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+};
+
+function icono(nombre) {
+  const d = ICONOS[nombre];
+  if (!d) return null;
+  const svg = document.createElementNS(NS, "svg");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "currentColor");
+  svg.setAttribute("stroke-width", "1.6");
+  svg.setAttribute("stroke-linecap", "round");
+  svg.setAttribute("stroke-linejoin", "round");
+  svg.setAttribute("aria-hidden", "true");
+  svg.innerHTML = d;
+  return svg;
+}
+
+function hijo(tag, cls, txt) {
+  const n = document.createElement(tag);
+  n.className = cls;
+  n.textContent = txt;
+  return n;
+}
+
+function abrir(a, url) {
+  a.href = url;
+  a.rel = "noopener";
+  if (/^https?:/i.test(url)) a.target = "_blank";
+}
+
+function pintarCabecera() {
+  document.querySelector("#bio-slot").textContent = BIO;
+
+  const redes = document.querySelector("#redes-slot");
+  for (const red of REDES) {
+    const a = document.createElement("a");
+    abrir(a, red.url);
+    a.title = red.nombre;
+    a.setAttribute("aria-label", red.nombre);
+    const svg = icono(red.icono);
+    if (svg) a.append(svg);
+    redes.append(a);
+  }
+
+}
+
+function pintarSesiones() {
+  const slot = document.querySelector("#sesiones-slot");
+  if (!SESIONES || SESIONES.length === 0) { slot.remove(); return; }
+
+  const caja = document.createElement("section");
+  caja.className = "sesiones";
+
+  const titulo = document.createElement("h2");
+  titulo.textContent = "Próximas sesiones";
+  caja.append(titulo, document.createElement("hr"));
+
+  const lista = document.createElement("ol");
+  for (const sesion of SESIONES) {
+    const item = document.createElement("li");
+
+    // Con `url` la fila es un enlace; sin ella, un bloque que solo informa.
+    const fila = document.createElement(sesion.url ? "a" : "div");
+    fila.className = "sesion";
+    if (sesion.url) abrir(fila, sesion.url);
+
+    const fecha = document.createElement("div");
+    fecha.className = "sesion-fecha";
+    fecha.append(
+      // A dos dígitos, como la `cifra` de las guías: así la columna mide
+      // siempre lo mismo, venga un 7 o un 16.
+      hijo("span", "sesion-dia", String(sesion.dia).padStart(2, "0")),
+      hijo("span", "sesion-mes", sesion.mes),
+    );
+
+    const detalle = document.createElement("div");
+    detalle.className = "sesion-detalle";
+    if (sesion.codigo) detalle.append(hijo("span", "sesion-codigo", sesion.codigo));
+    detalle.append(hijo("span", "sesion-ramo", sesion.ramo));
+
+    const cuando = [sesion.diaSemana, sesion.hora, sesion.lugar].filter(Boolean).join(", ");
+    if (cuando) detalle.append(hijo("span", "sesion-cuando", cuando));
+
+    if (sesion.url) {
+      detalle.append(hijo("span", "sesion-accion", "Inscribirse"));
+    }
+
+    fila.append(fecha, detalle);
+    item.append(fila);
+    lista.append(item);
+  }
+
+  caja.append(lista);
+  slot.replaceWith(caja);
+}
+
+function pintarBotones() {
+  const cont = document.querySelector("#botones-slot");
+  const frag = document.createDocumentFragment();
+  let n = 0;
+
+  for (const item of BOTONES) {
+    if (item.seccion) {
+      const h = document.createElement("h2");
+      h.className = "seccion";
+      h.textContent = item.seccion;
+      frag.append(h);
+      continue;
+    }
+
+    const a = document.createElement("a");
+    a.className = item.principal ? "boton principal" : "boton";
+    a.style.setProperty("--retardo", (n * 0.06).toFixed(2) + "s");
+    abrir(a, item.url);
+
+    const svg = icono(item.icono);
+    if (svg) a.append(svg);
+    a.append(document.createTextNode(item.titulo));
+
+    frag.append(a);
+    n++;
+  }
+
+  cont.append(frag);
+}
+
+/* El cielo. Posiciones fijas para que el fondo sea siempre el mismo y no
+   cambie de una visita a otra. */
+function pintarCielo() {
+  const cielo = document.querySelector("#cielo");
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  //          x%   y%   px  opac  seg  dx   dy
+  const astros = [
+    [  6,  8,  9, .07, 26,  14, -10],
+    [ 84, 14, 13, .05, 34, -18,  12],
+    [ 22, 26,  6, .09, 21,  -9,  14],
+    [ 68, 34,  8, .06, 29,  12,  10],
+    [ 44,  5,  5, .08, 24,   8,  12],
+    [ 92, 45,  7, .07, 31, -13,  -9],
+    [  4, 48, 11, .04, 37,  16,  11],
+    [ 33, 58,  5, .08, 22, -10,  -8],
+    [ 76, 63,  9, .05, 28,  11, -13],
+    [ 14, 72,  7, .07, 33, -12,   9],
+    [ 58, 79, 12, .04, 30,   9,  13],
+    [ 88, 86,  6, .08, 25, -11,  -7],
+    [ 27, 91,  8, .05, 35,  13,  -9],
+    [ 50, 40,  5, .09, 23,  -7,  11],
+    [ 71,  4,  6, .07, 27,  10,   8],
+    [  9, 33,  7, .06, 32, -14,  -6],
+    ];
+
+  for (const [x, y, tam, op, seg, dx, dy] of astros) {
+    const svg = document.createElementNS(NS, "svg");
+    svg.setAttribute("viewBox", "0 0 266.65 215.04");
+    svg.innerHTML = '<path d="M0 0 L133.325 107.52 L0 215.04 Z"/>'
+                  + '<path d="M266.65 0 L133.325 107.52 L266.65 215.04 Z"/>';
+    svg.style.left = x + "%";
+    svg.style.top = y + "%";
+    svg.style.width = tam + "px";
+    svg.style.opacity = op;
+    svg.style.animationDuration = seg + "s";
+    svg.style.setProperty("--dx", dx + "px");
+    svg.style.setProperty("--dy", dy + "px");
+    cielo.append(svg);
+  }
+}
+
+pintarCabecera();
+pintarSesiones();
+pintarBotones();
+pintarCielo();
+</script>
+
+</body>
+</html>
