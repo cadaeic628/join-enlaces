@@ -98,7 +98,7 @@ const BOTONES = [
 - **Sacar uno**: borra su bloque.
 - **Reordenar**: mueve los bloques.
 - **Agrupar**: mete un `{ seccion: "Título" }` donde quieras el separador. Puedes poner varios.
-- `icono` acepta `formulario`, `guia`, `chat`, `telegram`, `instagram` y `calendario`. Si lo
+- `icono` acepta `formulario`, `guia`, `chat`, `telegram`, `discord`, `instagram` y `calendario`. Si lo
   omites, el botón sale sin ícono, que también es válido.
 
 Todos los links ya son los de verdad.

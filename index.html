@@ -430,8 +430,8 @@ const SESIONES = [
     dia:       "21",
     mes:       "oct",
     diaSemana: "miércoles",
-    hora:      "14:00 a 15:30",
-    lugar:     "Sala Philippe Flajolet",
+    hora:      "14:00 a 16:00",
+    lugar:     "online por Discord",
     url:       "https://docs.google.com/forms/d/e/1FAIpQLSclp89zqzsa-SriANXsHqrOa9koCYRg0AKuB9t92Xqsaus3TA/viewform",
   },
 ];
@@ -446,7 +446,7 @@ const REDES = [
 
    - Un objeto con `seccion` dibuja un separador con ese título.
    - `principal: true` pinta el botón de azul relleno. Deja solo uno.
-   - `icono` es uno de: formulario, guia, chat, telegram, instagram, calendario.
+   - `icono` es uno de: formulario, guia, chat, telegram, discord, instagram, calendario.
      Si lo omites, el botón sale sin ícono. */
 const BOTONES = [
   {
@@ -468,6 +468,11 @@ const BOTONES = [
     url:    "https://t.me/+4xaDfXh2sSUyMTMx",
   },
   {
+    icono:  "discord",
+    titulo: "Servidor de Discord",
+    url:    "https://discord.gg/eMwXKxCGa",
+  },
+  {
     icono:  "instagram",
     titulo: "@proyectojoin.dcc",
     url:    "https://instagram.com/proyectojoin.dcc",
@@ -484,6 +489,7 @@ const ICONOS = {
   guia:       '<path d="M6 3h8l4.5 4.5V21H6z"/><path d="M14 3v5h4.5"/><path d="M9 13h6M9 17h4"/>',
   chat:       '<path d="M20.5 14.5a2 2 0 0 1-2 2H9l-4.5 4v-15a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/>',
   telegram:   '<path d="M21 4.2 2.8 11.3l5.2 1.9L20 5.6l-9.6 8.6.4 5.6 3.1-3.9 4.5 3.2z"/>',
+  discord:    '<path d="M8.6 5.6Q6 6 4.4 7.3 2 11 2.4 16.6q2 1.5 4.5 2.1l1.2-1.9M15.4 5.6Q18 6 19.6 7.3 22 11 21.6 16.6q-2 1.5-4.5 2.1l-1.2-1.9"/><path d="M7.4 16.2q4.6 2 9.2 0M8.6 5.6 9.2 7.2q2.8-.6 5.6 0l.6-1.6"/><circle cx="9.2" cy="12.4" r="1.4" fill="currentColor" stroke="none"/><circle cx="14.8" cy="12.4" r="1.4" fill="currentColor" stroke="none"/>',
   instagram:  '<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.1" cy="6.9" r="1.15" fill="currentColor" stroke="none"/>',
   calendario: '<rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
   tocar:      '<path d="M10 15V7a1.5 1.5 0 0 1 3 0v6"/><path d="M13 13a1.5 1.5 0 0 1 3 0v1.5a1.5 1.5 0 0 1 3 0v2.5a5.5 5.5 0 0 1-5.5 5.5h-1.2c-1.6 0-2.9-.5-4-1.6l-2.9-2.9a1.4 1.4 0 0 1 2-2L10 15"/><path d="M11.5 3.2V1.9M8.2 4.4 7.3 3.5M14.8 4.4l.9-.9"/>',
